@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login / Signup</title>
+    <link rel="stylesheet" href="dangky.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- <div class="login-box">
+        <h2>Login</h2>
+        <input type="email" placeholder="Email" id="login-email" />
+        <input type="password" placeholder="Password" id="login-password" />
+        <a href="#">Forgot password?</a>
+        <button id="login-btn">Login</button>
+        <p>Don't have an account? <a href="#">Signup</a></p>
+        <div class="or-separator">
+          <hr />
+          <span>Or</span>
+          <hr />
+        </div>
+        <button class="social-login facebook-login">
+          f Login with Facebook
+        </button>
+        <button class="social-login google-login">G Login with Google</button>
+      </div> -->
+      <div class="signup-box">
+        <h2>Signup</h2>
+        <input type="" placeholder="userName" id="username" />
+        <input type="password" placeholder="Create password" id="password" />
+
+        <button id="signup-btn">Signup</button>
+        <p>Already have an account? <a href="#">Login</a></p>
+        <div class="or-separator">
+          <hr />
+          <span>Or</span>
+          <hr />
+        </div>
+        <button class="social-login facebook-login">
+          f Login with Facebook
+        </button>
+        <button class="social-login google-login">G Login with Google</button>
+      </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyCRyGDrb0Cp6NXngz9Zrd5k79ukO424xoc",
+        authDomain: "jsi10-4c067.firebaseapp.com",
+        projectId: "jsi10-4c067",
+        storageBucket: "jsi10-4c067.firebasestorage.app",
+        messagingSenderId: "30890979344",
+        appId: "1:30890979344:web:edb6d670704b32f2a11a95",
+        measurementId: "G-7WN5SJMHSV",
+      };
+
+      // ✅ Khởi tạo Firebase & Firestore
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // ✅ Lưu người dùng
+      document.getElementById("signup-btn").addEventListener("click", () => {
+        const username = document.getElementById("username").value.trim();
+        const password = document.getElementById("password").value.trim();
+
+        if (!username || !password) {
+          alert("Vui lòng nhập đầy đủ username và password");
+          return;
+        }
+
+        db.collection("users")
+          .doc(username)
+          .set({ username, password })
+          .then(() => {
+            document.getElementById("username").value = "";
+            document.getElementById("password").value = "";
+            alert("Đăng ký thành công");
+          })
+          .catch((error) => {});
+      });
+
+      // ✅ Hiển thị danh sách người dùng
+    </script>
+  </body>
+</html>

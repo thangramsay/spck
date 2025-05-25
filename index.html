@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CarZone - Buy Your Dream Car</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        background-color: #f9f9f9;
+        color: #333;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      header {
+        background-color: #222;
+        color: #fff;
+        padding: 20px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      header h1 {
+        font-size: 28px;
+      }
+
+      nav a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 20px;
+        font-size: 16px;
+      }
+
+      nav button {
+        margin-left: 20px;
+        padding: 8px 12px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .hero {
+        background: url("https://images.unsplash.com/photo-1603169731720-061b6554023f")
+          no-repeat center center/cover;
+        height: 80vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        padding: 0 20px;
+      }
+
+      .hero h2 {
+        font-size: 48px;
+        background: rgba(0, 0, 0, 0.5);
+        padding: 20px;
+        border-radius: 8px;
+      }
+
+      .features {
+        padding: 60px 40px;
+        background-color: #fff;
+        text-align: center;
+      }
+
+      .features h3 {
+        font-size: 32px;
+        margin-bottom: 30px;
+      }
+
+      .search-bar {
+        margin-bottom: 20px;
+      }
+
+      #searchInput {
+        padding: 10px;
+        width: 60%;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+
+      .filter-buttons {
+        margin-bottom: 20px;
+      }
+
+      .filter-buttons button {
+        padding: 10px 15px;
+        margin: 5px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .car-list {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 30px;
+      }
+
+      .car {
+        background: #f1f1f1;
+        padding: 20px;
+        border-radius: 10px;
+        width: 300px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+
+      .car:hover {
+        transform: translateY(-5px);
+      }
+
+      .car img {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      .car h4 {
+        margin: 10px 0 5px;
+      }
+
+      .car p {
+        font-size: 14px;
+        color: #555;
+      }
+
+      .car button {
+        margin-top: 10px;
+        background-color: #28a745;
+        color: white;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      footer {
+        background-color: #222;
+        color: #fff;
+        text-align: center;
+        padding: 30px 20px;
+        margin-top: 40px;
+      }
+
+      footer p {
+        margin: 10px 0;
+      }
+
+      /* Dark Mode */
+      .dark-mode {
+        background-color: #121212;
+        color: #eee;
+      }
+
+      .dark-mode .features {
+        background-color: #1a1a1a;
+      }
+
+      .dark-mode header,
+      .dark-mode footer {
+        background-color: #1e1e1e;
+      }
+
+      .dark-mode .car {
+        background-color: #2c2c2c;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>CarZone</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="cars.html">Cars</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <button id="toggleDark">🌙</button>
+        <span style="margin-left: 15px">🛒 <span id="cart-count">0</span></span>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <h2>Find Your Perfect Ride Today</h2>
+    </section>
+
+    <section class="features">
+      <h3>Featured Cars</h3>
+
+      <div class="search-bar">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search by car name..."
+        />
+      </div>
+
+      <div class="filter-buttons">
+        <button onclick="filterCars('all')">All</button>
+        <button onclick="filterCars('sedan')">Sedan</button>
+        <button onclick="filterCars('suv')">SUV</button>
+        <button onclick="filterCars('sports')">Sports</button>
+      </div>
+
+      <div class="car-list" id="carList">
+        <div class="car" data-type="sedan">
+          <img
+            src="https://source.unsplash.com/400x250/?car,luxury"
+            alt="Luxury Car"
+          />
+          <h4>Luxury Sedan 2023</h4>
+          <p>
+            Price: $40,000<br />Top speed, comfort, and style in one sleek ride.
+          </p>
+          <button onclick="addToCart('Luxury Sedan 2023')">Add to Cart</button>
+        </div>
+        <div class="car" data-type="suv">
+          <img src="https://source.unsplash.com/400x250/?car,suv" alt="SUV" />
+          <h4>All-Terrain SUV</h4>
+          <p>
+            Price: $35,000<br />Perfect for off-road adventures and family
+            trips.
+          </p>
+          <button onclick="addToCart('All-Terrain SUV')">Add to Cart</button>
+        </div>
+        <div class="car" data-type="sports">
+          <img
+            src="https://source.unsplash.com/400x250/?sports,car"
+            alt="Sports Car"
+          />
+          <h4>2023 Sports Coupe</h4>
+          <p>
+            Price: $55,000<br />Speed, agility, and a design that turns heads.
+          </p>
+          <button onclick="addToCart('2023 Sports Coupe')">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Contact us: support@carzone.com | 123-456-7890</p>
+      <p>&copy; 2025 CarZone. All rights reserved.</p>
+    </footer>
+
+    <script>
+      let cartCount = 0;
+
+      function addToCart(carName) {
+        cartCount++;
+        document.getElementById("cart-count").textContent = cartCount;
+        alert(carName + " has been added to your cart!");
+      }
+
+      function filterCars(type) {
+        const cars = document.querySelectorAll(".car");
+        cars.forEach((car) => {
+          if (type === "all" || car.dataset.type === type) {
+            car.style.display = "block";
+          } else {
+            car.style.display = "none";
+          }
+        });
+      }
+
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          const keyword = this.value.toLowerCase();
+          const cars = document.querySelectorAll(".car");
+
+          cars.forEach((car) => {
+            const name = car.querySelector("h4").textContent.toLowerCase();
+            car.style.display = name.includes(keyword) ? "block" : "none";
+          });
+        });
+
+      document.getElementById("toggleDark").addEventListener("click", () => {
+        document.body.classList.toggle("dark-mode");
+      });
+    </script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+    <script>
+      // ✅ Khởi tạo Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyCRyGDrb0Cp6NXngz9Zrd5k79ukO424xoc",
+        authDomain: "jsi10-4c067.firebaseapp.com",
+        projectId: "jsi10-4c067",
+        storageBucket: "jsi10-4c067.firebasestorage.app",
+        messagingSenderId: "30890979344",
+        appId: "1:30890979344:web:edb6d670704b32f2a11a95",
+        measurementId: "G-7WN5SJMHSV",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // ✅ Hiển thị danh sách xe từ Firebase
+      function renderCars() {
+        const carList = document.getElementById("carList");
+        carList.innerHTML = "<p>Loading cars...</p>";
+
+        db.collection("cars")
+          .orderBy("createdAt", "desc")
+          .get()
+          .then((snapshot) => {
+            carList.innerHTML = ""; // Xóa loading
+
+            snapshot.forEach((doc) => {
+              const car = doc.data();
+              const carHTML = `
+            <div class="car" data-type="${car.type}">
+              <img src="${car.image}" alt="${car.name}" />
+              <h4>${car.name}</h4>
+              <p>Price: ${car.price}<br>${car.description}</p>
+              <button onclick="addToCart('${car.name}')">Add to Cart</button>
+            </div>
+          `;
+              carList.innerHTML += carHTML;
+            });
+          })
+          .catch((err) => {
+            carList.innerHTML = "<p>Failed to load cars. Please try again.</p>";
+            console.error(err);
+          });
+      }
+
+      // ✅ Gọi hàm khi trang tải
+      window.addEventListener("DOMContentLoaded", renderCars);
+    </script>
+  </body>
+</html>
